@@ -1,120 +1,201 @@
 \begin{frame}{Alphabets and strings}
-  In some contexts:
-  \begin{itemize}
-    \item Sets are called alphabets.
-    \item Tuples over alphabets are called strings or words.
-    \item We omit the brackets and commas when we can.
-    \item The empty tuple is called the empty string and denoted $\epsilon$.
-  \end{itemize}
-  \vspace{3mm}
-  \begin{exampleblock}{Example}
-    Let $A$ be the alphabet $\{0, 1\}$. Each of the following is a string over that alphabet:
-      $$ \epsilon, 0, 1, 00, 01, 10, 11, 001, 010, 011, 100, \ldots $$
-  \end{exampleblock}
-\end{frame}
 
-\begin{frame}{Concatenation of strings}
-  We can take two strings over the same alphabet and concatenate them.
   \vspace{2mm}
-  \begin{exampleblock}{Example}
-    \begin{itemize}
-      \setlength\itemsep{3mm}
-      \item Let $s_1 = 00$ and $s_2=101$ be two strings over $\{0,1\}$.
-      \item Concatenating $00$ and $101$ gives $s_1 \circ s_2 = 00101$.
-      \item Technically, $(0,0) \circ (1,0,1) = (0,0,1,0,1)$.
-      \item When we can, we omit the notation: $s_1s_2 = 00101$.
-      \item Also, $s_2s_1 = 10100$ which is a different string.
-      \item Concatenation is not commutative.
-    \end{itemize}
-  \end{exampleblock}
+
+  Start with a set, call it an alphabet.
+
+  \redmath{A = \{ 0, 1 \}}
+
+  \vspace{2mm}
+
+  Call tuples over the alphabet strings:
+
+  \redmath{s = (1, 0, 1, 0, 1, 1) = 101011}
+
+  \vspace{2mm}
+
+  Don't forget the empty tuple/string:
+
+  \redmath{\epsilon = ()}
+
+  \vspace{2mm}
+
+  Strings can be concatenated, denoted by $.$ or not:
+
+  \redmath{s.t = st = 101011.001 = 101011001}
+
+  \redmath{t.s = ts = 001.101011 = 001101011}
+
 \end{frame}
 
 
-\begin{frame}{Kleene star of an alphabet}
-  \redmath{A = \{0,1\}}
-  
-  \begin{description}[abc]
-    \item[$A^1$] $= \{0,1\}$, the strings of length one over $A$.
-    \item[$A^2$] $= \{00,01,10,11\}$, the strings of length two over $A$.
-    \item[$A^i$] $=$ the strings of length $i$ over $A$, $i \in \mathbb{N}_0$.
-    \item[$A^0$] $= \{\epsilon\}$, the strings of length zero over $A$.
-  \end{description}
+\begin{frame}{Set of all strings}
 
-  \begin{exampleblock}{Definition}
-    The Kleene star of $A$ is the union of all the $A^i$:
-    \redmath{A^* = \bigcup_i A^i = \{ \epsilon, 0, 1, 00, 01, 10, \ldots\}}
-  \end{exampleblock}
+  \vspace{2mm}
 
-  \emph{Note this applies to any alphabet, not just $\{0,1\}$.}
+  Start with an alphabet.
+
+  \redmath{A = \{ 0, 1 \}}
+
+  \vspace{2mm}
+
+  Write $A^i$ for the set of all tuples over $A$ of length $i$ where $i \in \mathbb{N}_0$:
+
+  \redmath{A^2 = \{ 00, 01, 10, 11 \}}
+
+  \vspace{2mm}
+
+  Don't forget the empty tuple/string:
+
+  \redmath{A^0 = \{ \epsilon \}}
+
+  \vspace{2mm}
+
+  The set of all strings over $A$ is called the \textcolor{gmitblue}{Kleene star ($*$)} of $A$:
+
+  \redmath{A^* = \bigcup_{i \in \mathbb{N}_0} A^i}
+
 \end{frame}
 
 
 \begin{frame}{Languages}
+
+  \vspace{2mm}
+
+  Each subset of $A^*$ is called a language over $A$:
+
   \redmath{L \subseteq A^*}
 
-  A subset of the star of an alphabet is a \textbf{language} over it.
+  \vspace{2mm}
 
-  \begin{exampleblock}{Example}
-    \begin{itemize}
-      \item Let $A = \{a,b,c\}$.
-      \item Then $A^*=\{\epsilon,a,b,c,aa,ab,ac,ba,bb,bc,\ldots\}$.
-      \item $L_1 = \{aa,bbb,ccc\}$ is a language.
-      \item $L_2 = \{s \mid s \textrm{ contains an } a \}$ is also a language.
-      \item Read this as ``all strings $s$ where $s$ contains an $a$''.
-    \end{itemize}
-  \end{exampleblock}
+  Note the empty set is a language:
 
-  We can create new languages from smaller ones using union, concatenate and star.
+  \redmath{\{ \} \subseteq A^*}
+
+  \vspace{2mm}
+
+  And so is $A^*$ itself:
+
+  \redmath{A^* \subseteq A^*}
+
+  \vspace{2mm}
+
+  We are typically interested in the \textcolor{gmitblue}{proper} subsets of $A^*$:
+
+  \redmath{L \subseteq A^* \qquad \textrm{where} \qquad L \neq \{ \}, A^* }
+
 \end{frame}
 
 
-\begin{frame}{Union of languages}
-  \redmath{L_1 = \{00,11\} \quad L_2 = \{11,111,1111\}}
-  \redmath{L_1 \cup L_2 = \{00,11,111,1111\}}
+\begin{frame}{Union of Languages}
+
+  \vspace{2mm}
+
+  Suppose we've two languages over the same alphabet:
+
+  \redmath{L_1 = \{ 000, 111 \} \subseteq \{ 0, 1 \}^*}
+
   
-  \begin{itemize}
-    \setlength\itemsep{4mm}
-    \item The union of languages is the set of all strings in any of them.
-    \item We could consider two languages over different alphabets, if we took the union of the alphabets -- we usually don't.
-  \end{itemize}
+  \redmath{L_2 = \{ 101, 010, 111 \} \subseteq \{ 0, 1 \}^*}
+
+  \vspace{2mm}
+
+  The union of $L_1$ and $L_2$ is the set containing the elements of both:
+
+  \redmath{L_1 \cup L_2 = \{ 000, 010, 101, 111 \}}
+
+  \vspace{2mm}
+
+  Remember that sets don't keep count of elements.
+
+\end{frame}
+
+\begin{frame}{Intersection of Languages}
+
+  \vspace{2mm}
+
+  Suppose we've two languages over the same alphabet:
+
+  \redmath{L_1 = \{ 000, 111 \} \subseteq \{ 0, 1 \}^*}
+
+  
+  \redmath{L_2 = \{ 101, 010, 111 \} \subseteq \{ 0, 1 \}^*}
+
+  \vspace{2mm}
+
+  The intersection of $L_1$ and $L_2$ is the set containing the elements in both:
+
+  \redmath{L_1 \cap L_2 = \{ 111 \}}
+
+  \vspace{2mm}
+
+  Two languages can have an empty intersection.
+
+\end{frame}
+
+\begin{frame}{Concatenation of Languages}
+
+  \vspace{2mm}
+
+  Suppose we've two languages over the same alphabet:
+
+  \redmath{L_1 = \{ 000, 111 \} \subseteq \{ 0, 1 \}^*}
+
+  
+  \redmath{L_2 = \{ 101, 010, 111 \} \subseteq \{ 0, 1 \}^*}
+
+  \vspace{2mm}
+
+  The concatenation of $L_1$ and $L_2$ is the set containing the concatenation of each of the elements of the first language with each of the elements of the second:
+
+  \redmath{L_1 L_2 = \{ 000101, 000010, 000111, 111101, 111010, 111111 \}}
+
+  \vspace{2mm}
+
+  If $\epsilon$ is in either language then the elements of the other are in the concatenation.
+
 \end{frame}
 
 
-\begin{frame}{Concatenation of languages}
-  \redmath{L_1 = \{00,11\} \quad L_2 = \{11,111,1111\}}
-  \redmath{L_1 \circ L_2 = \{0011,00111,00111111,1111,11111,11111111\}}
-  \begin{itemize}
-    \setlength\itemsep{4mm}
-    \item The concatenation of two languages is the set of concatenations of each string from the first language with each string from the second language.
-    \item Note, usually $L_1 \circ L_2 \neq L_2 \circ L_1$. When are they equal?
-    \item We usually omit the circle: $L_1 L_2$.
-  \end{itemize}
+\begin{frame}{Kleene star of a language}
+
+
+  \vspace{2mm}
+
+  Write $L^2$ for the concatenation of $L$ with $L$.
+
+  \redmath{L^2 = \{ 000, 111 \}^2 \subseteq \{ 000000, 000111, 111000, 111111 \}^*}
+
+  \vspace{2mm}
+
+  Set $L^0$ and $L^1$ as follows:
+
+  \redmath{L^0 = \{ \}, \qquad L^1 = L }
+
+  \vspace{2mm}
+
+  Then set:
+
+  \redmath{L^i = L^{i-1} L \qquad \forall i \in \mathbb{N}, \   i > 2}
+
+  \vspace{2mm}
+
+  Then the Kleene star (*) of the language $L$ is:
+
+  \redmath{L^* = \bigcup_{i \in \mathbb{N}_0} L^i = \{ \epsilon, 000, 111, 000000, 000111, \ldots \}}
+
 \end{frame}
 
 
-\begin{frame}{Star of languages}
-  \redmath{L = \{00,11\}}
-  \redmath{L^* = \{\epsilon,00,11,0000,0011,1100,1111,\ldots\}}
-  \begin{itemize}
-    \item The star of a language is the same idea as the star of an alphabet.
-    \item $L^1$ is the language itself.
-    \item $L^2$ is the language concatenated to itself.
-    \item $L^3$ is the language concatenated to itself twice.
-    \item $L^0$ is the language containing only $\epsilon$.
-    \item The star is the union of $L^i$ for all $i \in \mathbb{N}_0$.
-    \item We also define $L^+$ as the union of $L^i$ for all $i \in \mathbb{N}$.
-  \end{itemize}
-\end{frame}
-
-
-\begin{frame}{File types as languages}
+\begin{frame}{Files types as languages}
   \begin{itemize}
     \setlength\itemsep{3mm}
-    \item The set of all valid pdf files is a language over the alphabet $A =\{0,1\}$.
-    \item So, the set of valid pdf's is a subset of $A^*$.
+    \item Computer files are stored as 0's and 1's.
+    \item A file is a string over $\{ 0, 1 \}$
+    \item File types are languages over $\{ 0, 1 \}$.
+    \item Set of all valid pdf files is a language over $\{ 0,1 \}$.
     \item As is the set of valid docx files.
     \item A computer program that converts pdf's to docx's maps one subset of $A^*$ to another.
-    \item Remember too, that executable files themselves are stored as files in 0's and 1's.
-    \item In fact, all files are in $\{0,1\}^*$.
+    \item Executable files are also strings over $\{ 0, 1 \}$.
   \end{itemize}
 \end{frame}
